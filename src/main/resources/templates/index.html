@@ -1,0 +1,39 @@
+<html>
+<body>
+<script>
+    async function sendData() {
+        const requestUrl = '/user/add';
+
+        const requestData = {
+
+            email:document.querySelector('#email').value,
+            password: document.querySelector('#password').value
+        };
+
+        const response = await fetch(requestUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)  // called request payload or request content too
+        });
+
+        const responseData = await response.json();
+
+    }
+</script>
+<form method="POST">
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" value="youremail@gmail.com"><br>
+    <label for="password">Password</label><br>
+    <input type="password" id="password" name="password" value="******"><br><br>
+</form>
+<button onclick="sendData()">Login</button>
+<form action="http://localhost:8080/register">
+    <input type="submit" value="Go to register" />
+</form>
+</body>
+
+</html>
