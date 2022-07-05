@@ -1,12 +1,41 @@
-<form method="POST">
-        <label for="fname">First name:</label><br>
-        <input type="text" id="fname" name="fname" value="John"><br>
-        <label for="lname">Last name:</label><br>
-        <input type="text" id="lname" name="lname" value="Doe"><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" value="youremail@gmail.com"><br>
-        <label for="password">Password</label><br>
-        <input type="password" id="password" name="password" value="******"><br><br>
-        <input type="submit" value="Submit">
+<html>
+<body>
+<script>
+        async function sendData() {
+                const requestUrl = '/user/add';
 
-</form>
+                const requestData = {
+                        id: '2',
+                        firstName: document.querySelector('#fname').value,
+                        secondName:document.querySelector('#lname').value,
+                        email:document.querySelector('#email').value,
+                        password: document.querySelector('#password').value
+                };
+
+                const response = await fetch(requestUrl, {
+                        method: 'POST',
+                        headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestData)  // called request payload or request content too
+                });
+
+                const responseData = await response.json();
+
+        }
+</script>
+        <form method="POST">
+                <label for="fname">First name:</label><br>
+                <input type="text" id="fname" name="fname" value="John"><br>
+                <label for="lname">Last name:</label><br>
+                <input type="text" id="lname" name="lname" value="Doe"><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" value="youremail@gmail.com"><br>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="password" value="******"><br><br>
+        </form>
+        <button onclick="sendData()">Submit</button>
+</body>
+
+</html>
