@@ -1,11 +1,21 @@
 package com.wator.organizer;
 
-public class UserEntity {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "users")
+public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
     private Long id;
-    private String firstName;
+    @Column(name = "first_name", nullable = false)
+    private String FirstName;
+    @Column(name = "second_name", nullable = false)
     private String secondName;
+    @Column(name = "Email", nullable = false)
     private String email;
+    @Column(name = "user_password", nullable = false)
     private String password;
 
     public UserEntity(){
@@ -13,7 +23,7 @@ public class UserEntity {
     }
     public UserEntity(Long id, String firstName, String secondName, String email, String password) {
         this.id = id;
-        this.firstName = firstName;
+        this.FirstName = firstName;
         this.secondName = secondName;
         this.email = email;
         this.password = password;
@@ -28,11 +38,11 @@ public class UserEntity {
     }
 
     public String getFirstName() {
-        return firstName;
+        return FirstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.FirstName = firstName;
     }
 
     public String getSecondName() {
