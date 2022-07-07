@@ -89,4 +89,17 @@ public class UserController {
         }
         return ResponseEntity.of(foundUserOptional);
     }
+
+    @PostMapping(
+            value = "/api/users/login",
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Transactional
+    @ResponseBody
+    public String loginUser(@RequestBody UserEntity data){
+
+        Optional<UserEntity> u = this.usersRepository.findByEmailAndPassword(data.getEmail(),data.getPassword());
+       System.out.println(u.isPresent());
+        return "testtest";
+    }
 }
