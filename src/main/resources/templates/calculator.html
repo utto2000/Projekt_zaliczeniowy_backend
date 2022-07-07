@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+
+    async function sendData() {
+
+
+        const requestUrl = '/api/calculator/add';
+
+        const requestData = {
+
+            first_number:document.querySelector('#firstNumber').value,
+            secondNumber:document.querySelector('#secondNumber').value,
+            sign: document.querySelector('input[name="dzialanie"]:checked').value
+        };
+
+        const response = await fetch(requestUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)  // called request payload or request content too
+        });
+
+        const responseData = await response.json();
+        listOfDzialania()
+    }
+
+    function listOfDzialania(){
+
+        httpGet("http://localhost:8080/api/calculator/list")
+        setTimeout(listOfDzialania,1000)
+    }
+
+    function httpGet(theUrl)
+    {
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        console.log(xmlHttp.responseText);
+        var json = JSON.parse(xmlHttp.responseText)
+        var preetyJson =JSON.stringify(json,null,2)
+        document.getElementById("his").innerHTML = preetyJson;
+
+    }
+
+    function policz(){
+
+        var wynik = document.querySelector('#secondNumber').value + document.querySelector('#firstNumber').value
+        if( document.querySelector('input[name="dzialanie"]:checked').value == '+'){
+           document.getElementById("wynik").innerHTML = wynik
+        }else {
+            document.getElementById("wynik").innerHTML = (document.querySelector('#firstNumber').value - document.querySelector('#secondNumber').value )
+        }
+    }
+
+</script>
+<h1>Calculator</h1>
+<form method="POST">
+
+    <label>FirstNumber:</label><br>
+    <input  id="firstNumber" name="firstNumber" value="0"><br>
+    <label>SecondNumber</label><br>
+    <input id="secondNumber" name="secondNumber" value="secondNumber"><br><br>
+    <input type="radio"  name="dzialanie" value="+">+
+    <input type="radio"  name="dzialanie" value="-">-
+</form>
+
+<button onclick = "sendData(), policz()" > Save To history </button>
+<h2>Wynik</h2>
+<h3 id="wynik"></h3>
+<h2>history</h2>
+<p id="his">a</p>
+</body>
+</html>
