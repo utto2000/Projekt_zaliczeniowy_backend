@@ -2,10 +2,9 @@
 <body>
 <script>
         async function sendData() {
-                const requestUrl = '/user/add';
+                const requestUrl = '/api/user/create';
 
                 const requestData = {
-                        id: '2',
                         firstName: document.querySelector('#fname').value,
                         secondName:document.querySelector('#lname').value,
                         email:document.querySelector('#email').value,
@@ -34,8 +33,12 @@
                 <input type="email" id="email" name="email" value="youremail@gmail.com"><br>
                 <label for="password">Password</label><br>
                 <input type="password" id="password" name="password" value="******"><br><br>
+
         </form>
-        <button onclick="sendData()">Submit</button>
+
+<form  onclick="sendData()" action="http://localhost:8080/">
+        <input type="submit" value="Register" />
+</form>
 </body>
 
 </html>
