@@ -1,4 +1,4 @@
-package com.wator.organizer;
+package com.wator.organizer.entities;
 
 import javax.persistence.*;
 
@@ -8,7 +8,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
     @Column(name = "first_name", nullable = false)
     private String FirstName;
     @Column(name = "second_name", nullable = false)
@@ -29,11 +29,11 @@ public class UserEntity {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
