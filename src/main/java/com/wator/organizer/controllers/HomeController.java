@@ -17,5 +17,8 @@ public class HomeController {
         return "register";
     }
 
+    @RequestMapping("/calculator")
+    public String calsulator(){return "calculator";}
+
 
 }
