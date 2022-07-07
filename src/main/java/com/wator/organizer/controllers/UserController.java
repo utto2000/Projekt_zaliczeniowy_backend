@@ -115,8 +115,28 @@ public class UserController {
          return ResponseEntity.of(this.usersRepository.findById(0));
      }
 
-        Optional<UserEntity> u = this.usersRepository.findByEmailAndPassword(data.getEmail(),data.getPassword());
-       System.out.println(u.isPresent());
-        return "testtest";
+
     }
+
+    @GetMapping("/api/user/{id}/home")
+    public String userHome(@PathVariable("id") Integer UserId, HttpServletRequest request){
+        if(checkIfSessionWasLogedIn(request)) {
+            return "youAreLogedIn";
+        }else{
+            return "index";
+        }
+    }
+
+
+    public boolean checkIfSessionWasLogedIn(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Integer loggedUserId = (Integer) session.getAttribute("logged-user-id");
+        if (loggedUserId == null){
+            return false;
+        }else {
+            return true;
+        }
+
+    }
+
 }
