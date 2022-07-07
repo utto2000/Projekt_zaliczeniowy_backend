@@ -1,4 +1,4 @@
-1: stworzenie bazydanych dla urzytkowników
+1: stworzenie bazydanych dla urzytkowników+
 2: Uruchomienie dockera
 3: Stworzenie Readme
 4: stworzenie microserwisu dla kalkulatora
@@ -11,7 +11,7 @@
 11: zapytania między microserwisami
 12: API documentation
 13: kontrola nad specialnymi uprawnieniami urzytkowników
-14: Stworzenie systemu sesji
-15: logowanie urzytkowników
+14: Stworzenie systemu sesji +
+15: logowanie urzytkowników +
 16: prezentacja
 
