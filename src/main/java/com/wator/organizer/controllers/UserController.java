@@ -2,7 +2,8 @@
 package com.wator.organizer.controllers;
 
 import com.wator.organizer.UserEntity;
-import com.wator.organizer.UsersRepository;
+import com.wator.organizer.repositories.UsersRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
