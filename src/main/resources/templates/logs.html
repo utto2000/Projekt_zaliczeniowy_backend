@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    httpGet("http://localhost:8080/api/logs")
+    function httpGet(theUrl)
+    {
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        console.log(xmlHttp.responseText);
+        var json = JSON.parse(xmlHttp.responseText)
+        var preetyJson =JSON.stringify(json,null,2)
+        document.getElementById("logs").innerHTML = preetyJson;
+
+    }
+
+
+</script>
+<p id="logs"></p>
+</body>
+</html>
