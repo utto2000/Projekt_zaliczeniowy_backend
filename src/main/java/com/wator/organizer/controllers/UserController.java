@@ -92,13 +92,28 @@ public class UserController {
         return ResponseEntity.of(foundUserOptional);
     }
 
-    @PostMapping(
-            value = "/api/users/login",
-            consumes = MediaType.APPLICATION_JSON_VALUE
+    @GetMapping (
+            value = "/api/users/login/{email}/{password}",
+
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Transactional
-    @ResponseBody
-    public String loginUser(@RequestBody UserEntity data){
+    public ResponseEntity<UserEntity> loginUser(@PathVariable("email") String email , @PathVariable("password")String password, HttpServletRequest request){
+
+        Optional<UserEntity> u = this.usersRepository.findByEmailAndPassword(email,password);
+     if (u.isPresent()) {
+         HttpSession session = request.getSession();
+
+         System.out.println(session);
+         Integer loggedUserId = (Integer) session.getAttribute("logged-user-id");
+
+         session.setAttribute("logged-user-id", u.get().getId());
+         System.out.println(session.getAttribute("logged-user-id"));
+         return ResponseEntity.of(this.usersRepository.findById(u.get().getId()));
+
+     }else {
+         return ResponseEntity.of(this.usersRepository.findById(0));
+     }
 
         Optional<UserEntity> u = this.usersRepository.findByEmailAndPassword(data.getEmail(),data.getPassword());
        System.out.println(u.isPresent());
