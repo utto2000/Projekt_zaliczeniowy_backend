@@ -9,7 +9,7 @@ public class CalculatorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Integer id;
-    @Column(name = "user_id")
+    @Column(name = "userId")
     private Integer userId;
     @Column(name = "first_number")
     private Integer first_number;
