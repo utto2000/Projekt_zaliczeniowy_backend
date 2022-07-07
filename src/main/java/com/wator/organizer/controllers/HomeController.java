@@ -20,5 +20,7 @@ public class HomeController {
     @RequestMapping("/calculator")
     public String calsulator(){return "calculator";}
 
+    @RequestMapping("/logs")
+    public String logs(){return "logs";}
 
 }
