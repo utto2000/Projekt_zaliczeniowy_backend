@@ -36,8 +36,8 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Transactional(readOnly = true)
-    public ResponseEntity<UserEntity> getUser(@PathVariable("id") Long userId) {
-        return ResponseEntity.of(this.usersRepository.findById(userId));
+    public ResponseEntity<UserEntity> getUser(@PathVariable("id") Integer userId) {
+        return ResponseEntity.of(this.usersRepository.findById(Long.valueOf(userId)));
     }
 
     // POST http://localhost:8080/api/user/create
@@ -62,8 +62,8 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Transactional
-    public ResponseEntity<UserEntity> updateUser(@PathVariable("id") Long userId, @RequestBody UserEntity newUserEntity) {
-        Optional<UserEntity> foundUserOptional = this.usersRepository.findById(userId);
+    public ResponseEntity<UserEntity> updateUser(@PathVariable("id") Integer userId, @RequestBody UserEntity newUserEntity) {
+        Optional<UserEntity> foundUserOptional = this.usersRepository.findById(Long.valueOf(userId));
         if (foundUserOptional.isPresent()) {
             UserEntity foundUserEntity = foundUserOptional.get();
             foundUserEntity.setFirstName (newUserEntity.getFirstName());
@@ -82,10 +82,10 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Transactional
-    public ResponseEntity<UserEntity> removeUser(@PathVariable("id") Long userId) {
-        Optional<UserEntity> foundUserOptional = this.usersRepository.findById(userId);
+    public ResponseEntity<UserEntity> removeUser(@PathVariable("id") Integer userId) {
+        Optional<UserEntity> foundUserOptional = this.usersRepository.findById(Long.valueOf(userId));
         if (foundUserOptional.isPresent()) {
-            this.usersRepository.deleteById(userId);
+            this.usersRepository.deleteById(Long.valueOf(userId));
         }
         return ResponseEntity.of(foundUserOptional);
     }
