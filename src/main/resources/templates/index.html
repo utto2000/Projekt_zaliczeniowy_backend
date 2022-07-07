@@ -1,38 +1,35 @@
 <html>
 <body>
 <script>
-    async function sendData() {
-        const requestUrl = '/user/add';
 
-        const requestData = {
-
-            email:document.querySelector('#email').value,
-            password: document.querySelector('#password').value
-        };
-
-        const response = await fetch(requestUrl, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData)  // called request payload or request content too
-        });
-
-        const responseData = await response.json();
-
+    function httpGet()
+    {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var theUrl = "http://localhost:8080/api/users/login/"+email+"/"+password;
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        console.log(xmlHttp.responseText);
+        var json = JSON.parse(xmlHttp.responseText)
+        window.open("http://localhost:8080/api/user/"+json.id+"/home")
+        return xmlHttp.responseText;
     }
 </script>
-<form method="POST">
+<form  method="GET">
 
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email" value="youremail@gmail.com"><br>
-    <label for="password">Password</label><br>
+    <label for="password" >Password</label><br>
     <input type="password" id="password" name="password" value="******"><br><br>
 </form>
-<button onclick="sendData()">Login</button>
+
+<button onclick = "httpGet()" > Login </button>
+
+
+
 <form action="http://localhost:8080/register">
-    <input type="submit" value="Go to register" />
+    <input type="submit" value="Register" />
 </form>
 </body>
 
