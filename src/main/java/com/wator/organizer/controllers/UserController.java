@@ -1,6 +1,7 @@
 
 package com.wator.organizer.controllers;
 
+import com.wator.organizer.controllers.LogsController.*;
 import com.wator.organizer.entities.UserEntity;
 import com.wator.organizer.repositories.UsersRepository;
 import org.apache.catalina.User;
@@ -21,7 +22,8 @@ public class UserController {
 
     @Autowired
     private UsersRepository usersRepository;
-
+    @Autowired
+    private LogsController logsController;
 
     @GetMapping(
             value = "/api/users",
@@ -109,9 +111,11 @@ public class UserController {
 
          session.setAttribute("logged-user-id", u.get().getId());
          System.out.println(session.getAttribute("logged-user-id"));
+         logsController.addToLogs(request);
          return ResponseEntity.of(this.usersRepository.findById(u.get().getId()));
 
      }else {
+         logsController.addToLogs(request);
          return ResponseEntity.of(this.usersRepository.findById(0));
      }
 
