@@ -23,4 +23,7 @@ public class HomeController {
     @RequestMapping("/logs")
     public String logs(){return "logs";}
 
+    @RequestMapping("/notes")
+    public String notes(){return "notes";}
+
 }
