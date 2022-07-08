@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    listOfNotes()
+
+    async function sendData() {
+
+
+        const requestUrl = '/api/notes/add';
+
+        const requestData = {
+
+            notes:document.querySelector('#note').value,
+
+        };
+
+        const response = await fetch(requestUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)  // called request payload or request content too
+        });
+
+        const responseData = await response.json();
+        listOfNotes()
+    }
+
+
+
+    function listOfNotes(){
+
+        httpGet("http://localhost:8080/api/notes/list")
+        setTimeout(listOfNotes,1000)
+    }
+
+    function httpGet(theUrl)
+    {
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        console.log(xmlHttp.responseText);
+        var json = JSON.parse(xmlHttp.responseText)
+        var preetyJson =JSON.stringify(json,null,2)
+        document.getElementById("notes").innerHTML = preetyJson;
+
+    }
+
+    function showNotes(){
+        listOfNotes()
+    }
+
+</script>
+
+<h1>Notes</h1>
+<form method="POST">
+
+    <label>Notes</label><br>
+    <input  id="note" name="notes" value="0"><br>
+</form>
+
+<button onclick = "sendData()" > Save Note </button>
+<button onclick = "showNotes()" > Show Notes </button>
+<span id="notes"></span>
+</body>
+</html>
