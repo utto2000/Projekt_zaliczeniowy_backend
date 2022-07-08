@@ -5,6 +5,8 @@ import com.wator.organizer.controllers.LogsController.*;
 import com.wator.organizer.entities.UserEntity;
 import com.wator.organizer.repositories.UsersRepository;
 import org.apache.catalina.User;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
+    @Autowired
+    private RabbitTemplate template;
     @Autowired
     private UsersRepository usersRepository;
     @Autowired
@@ -112,9 +116,11 @@ public class UserController {
          session.setAttribute("logged-user-id", u.get().getId());
          System.out.println(session.getAttribute("logged-user-id"));
          logsController.addToLogs(request);
+         sendMessage("user with id:" +logsController+"is loggingIn");
          return ResponseEntity.of(this.usersRepository.findById(u.get().getId()));
 
      }else {
+
          logsController.addToLogs(request);
          return ResponseEntity.of(this.usersRepository.findById(0));
      }
@@ -130,7 +136,10 @@ public class UserController {
             return "index";
         }
     }
-
+    @RabbitListener(queues = "my-queue")
+    public void handleMyQueue(String message) {  // receives string message from my-queue
+        System.out.println("Message: " + message);
+    }
 
     public boolean checkIfSessionWasLogedIn(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -138,9 +147,15 @@ public class UserController {
         if (loggedUserId == null){
             return false;
         }else {
+
             return true;
+
         }
 
+    }
+
+    public void sendMessage(String message) {
+        this.template.convertAndSend("my-queue", message);  // sends string message to my-queue
     }
 
 }
