@@ -1,11 +1,11 @@
 1: stworzenie bazydanych dla urzytkowników+
-2: Uruchomienie dockera
-3: Stworzenie Readme
+2: Uruchomienie dockera /////////////////////////
+3: Stworzenie Readme///////////////////////////
 4: stworzenie microserwisu dla kalkulatora+
 5: stworzenie bazydanych dla historii działań+
 6: dodanie templatu dla kalkulatora+
-7: stworzenie microserwisu notatek
-8: stworzenie bazy danych dla notatek
+7: stworzenie microserwisu notatek +
+8: stworzenie bazy danych dla notatek +
 9: utworzenie klasy logowania do komunikacji z baza danych+
 10: Logowanie czynnosci użytkownika("logowania")+
 11: zapytania między microserwisami+
